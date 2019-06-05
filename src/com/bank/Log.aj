@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.Calendar;
 
 public aspect Log {
-    File f = new File("log.txt"); 
+    File archivo = new File("log.txt"); 
     Calendar cal = Calendar.getInstance();
     pointcut success() : call(* create*(..) );
     after() : success() {
@@ -17,7 +17,7 @@ public aspect Log {
     pointcut retiro() : call( * myMoney());
     after() : retiro(){
     	try{
-    		FileWriter fileW = new FileWriter(f);
+    		FileWriter fileW = new FileWriter(archivo);
     		BufferedWriter buff = new BufferedWriter(fileW);
     		PrintWriter printW = new PrintWriter(buff);  
     		printW.write("Tipo de transaccion: Dinero Retirado, fecha y hora: "+cal.getTime()+" ");
@@ -29,7 +29,7 @@ public aspect Log {
     pointcut transaccion() : call( * makeTransaction());
     after() : transaccion(){
     	try{
-    		FileWriter fileW = new FileWriter(f);
+    		FileWriter fileW = new FileWriter(archivo);
     		BufferedWriter buff = new BufferedWriter(fileW);
     		PrintWriter printW = new PrintWriter(buff);  
     		printW.write("Tipo de transaccion: Transaccion Realizada, fecha y hora: "+cal.getTime()+" ");
